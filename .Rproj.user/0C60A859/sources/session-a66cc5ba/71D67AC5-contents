@@ -1,0 +1,55 @@
+######################## Overview Tab
+
+if (exists("table_data_new()")) { # Printing an updated one if the user has inputted new data
+  output$datatable <- renderDT({
+    table_data_new()
+    
+    output$overview_rating <- renderPlot({
+      #boxplot(as.numeric(overview_plotting_df()$Rating) ~ overview_plotting_df()$Fruit)  
+      ggplot(data = table_data_new(), mapping = aes(x=table_data()$Fruit, y=as.numeric(table_data()$Rating))) +
+        geom_boxplot() +
+        theme_minimal() +
+        labs(y="Rating", x="Fruit") +
+        scale_y_continuous(limits = c(1, 10), breaks = seq(1, 10, by = 1))
+    }) # Renders the plot of all data
+  })  # Reprint updated datatable
+  print("print updated")
+} else { # Else, printing old one if the user has inputted new data
+  output$datatable <- renderDT({
+    table_data()
+    
+    output$overview_rating <- renderPlot({
+      #boxplot(as.numeric(overview_plotting_df()$Rating) ~ overview_plotting_df()$Fruit)  
+      ggplot(data = table_data(), mapping = aes(x=table_data()$Fruit, y=as.numeric(table_data()$Rating))) +
+        geom_boxplot() +
+        theme_minimal() +
+        labs(y="Rating", x="Fruit") +
+        scale_y_continuous(limits = c(1, 10), breaks = seq(1, 10, by = 1))
+    }) # Renders the plot of all data
+  })  # Reprint updated datatable
+  print("print updated")
+}
+
+
+
+
+######################## Filter TaB
+
+output$datatable_filt <- renderDT(
+  table_data() %>% 
+    mutate(Date = as.Date(Date)),
+  rownames = FALSE,
+  filter = 'top',
+  caption = 'Filtered data entries') # Renders filtered table as a dataframe (filtered by user actively)
+
+output$filtered_rating <- renderPlot({
+  filtered_data_ind <- input$datatable_filt_rows_all
+  if (length(filtered_data_ind) > 0 && length(filtered_data_ind) < nrow(table_data())) {
+    filtered_data <- table_data()[filtered_data_ind, ]
+    ggplot(data = filtered_data, mapping = aes(x=Fruit, y=as.numeric(Rating))) +
+      geom_boxplot() +
+      theme_minimal() +
+      labs(y="Rating", x="Fruit") +
+      scale_y_continuous(limits = c(1, 10), breaks = seq(1, 10, by = 1))
+  } # Renders plot of filtered data
+})
