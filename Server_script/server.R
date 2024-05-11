@@ -21,15 +21,9 @@ function(input, output, session) {
   })
   
   #####################3### Input data page
-  if(!exists("table_data_new()")){
   output$datatable <- renderDT({
-    table_data()
-  }) # Renders table as a dataframe
-  print("print original")} else
-  {output$datatable <- renderDT({
-    table_data_new()
-  }) # Renders table as a dataframe
-  }
+    DT::datatable(table_data(), options = list(pageLength = -1))
+  }) 
   
   observe({
     shinyjs::toggleState("submit", !is.null(input$fruit) && input$fruit != "") # Prevents submit button from being pressed if 'fruit' is empty
@@ -84,8 +78,8 @@ function(input, output, session) {
       
       print(response_data())
       
-      table_data_new <- reactive({
-        test_data_new <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1YEn75uxp6UyXC8mwW1F1f89S0uI_KBdTu-XAD4_riW0/edit?usp=sharing")
+      table_data <- reactive({
+        test_data <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1YEn75uxp6UyXC8mwW1F1f89S0uI_KBdTu-XAD4_riW0/edit?usp=sharing")
       }) # Reread updated datatable
       
     #   output$datatable <- renderDT({
