@@ -3,7 +3,7 @@
     "path": "~/Code/Shiny Apps/Fruit_boxplot_2/Server_script/server.R",
     "project_path": "Server_script/server.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "2370533141",
     "contents": "",
     "dirty": false,
     "created": 1715403229174.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "115,37",
-        "scrollLine": "81"
+        "cursorPosition": "102,6",
+        "scrollLine": "84"
     },
     "folds": "",
-    "lastKnownWriteTime": 1715414016,
+    "lastKnownWriteTime": 1715414611,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1715414016141,
+    "last_content_update": 1715414611657,
     "read_only": false,
     "read_only_alternatives": []
 }
